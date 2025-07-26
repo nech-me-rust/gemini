@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.3.7.2 (Linux)"/>
+	<meta name="created" content="2025-07-26T19:54:38.346499483"/>
+	<meta name="changed" content="2025-07-26T19:57:14.773265443"/>
+	<style type="text/css">
+		@page { size: 8.27in 11.69in; margin: 0.79in }
+		p { line-height: 115%; margin-bottom: 0.1in; background: transparent }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><p style="line-height: 100%; margin-bottom: 0in">
+&lt;!DOCTYPE html&gt; &lt;html lang=&quot;en&quot;&gt; &lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt; &lt;meta name=&quot;viewport&quot;
+content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Nech mě růst&lt;/title&gt; &lt;link
+href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&amp;display=swap&quot;
+rel=&quot;stylesheet&quot;&gt; &lt;script
+src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+&lt;style&gt; body { font-family: 'Inter', sans-serif; }
+::-webkit-scrollbar { width: 12px; } ::-webkit-scrollbar-track {
+background: #e0f2e0; border-radius: 10px; } ::-webkit-scrollbar-thumb
+{ background: #388e3c; border-radius: 10px; border: 3px solid
+#e0f2e0; } ::-webkit-scrollbar-thumb:hover { background: #2e7d32; }
+&lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;module&quot;&gt; import React, { useState,
+createContext, useContext, useEffect, useCallback } from
+'https://esm.sh/react@18.2.0'; import ReactDOM from
+'https://esm.sh/react-dom@18.2.0/client'; // --- Language Context ---
+const LanguageContext = createContext(); const translations = { cs: {
+home: 'Domů', about: 'O nás', calendar: 'Kalendář', contact:
+'Kontakt', language: 'Jazyk', heroTitle: 'Nech mě růst',
+heroSubtitle: 'Kde příroda a lidé rostou společně',
+heroDescription: 'Pomáháme přírodě dýchat a lidem se spojovat.
+Sázíme stromy, pěstujeme komunity a šíříme radost – s
+trochou humoru a spoustou lásky k zemi.', ourVisionTitle: 'Naše
+Vize', ourVisionText: 'Představujeme si svět, kde je každý strom
+považován za přítele a každá komunita za zahradu. Chceme, aby
+se lidé znovu propojili s přírodou a pochopili, že jsme všichni
+součástí jednoho velkého ekosystému. A ano, občas se u toho
+ušpiníme, ale to je přece ta zábava!', ourPhilosophyTitle: 'Naše
+Filozofie (s úsměvem)', ourPhilosophyText: 'Věříme, že i ta
+nejmenší sazenice má potenciál vyrůst v majestátní strom.
+Stejně tak věříme v sílu každého jednotlivce a komunity.
+Nebereme se příliš vážně, ale naši práci ano. Protože,
+upřímně, kdo by nechtěl žít ve světě, kde je víc kyslíku a
+méně starostí? Naše motto? &quot;Nezalívejte jen květiny,
+zalívejte i duše!&quot;', aboutTitle: 'O organizaci Nech mě růst',
+aboutIntro: 'Jsme skupina nadšenců, kteří věří v sílu přírody
+a komunity. Naše mise je jednoduchá: sázet stromy, vzdělávat a
+inspirovat lidi k ochraně životního prostředí, a to vše s
+radostí a lehkostí.', aboutMission: 'Naše mise', aboutMissionText:
+'Sázíme stromy v oblastech, kde je to nejvíce potřeba,
+organizujeme vzdělávací workshopy pro děti i dospělé, a
+vytváříme platformu pro sdílení znalostí a zkušeností o
+udržitelnosti. Chceme, aby se každý cítil součástí řešení,
+ne problému.', aboutValues: 'Naše hodnoty', aboutValuesText:
+'Příroda je náš domov, komunita naše síla a humor naše tajná
+zbraň. Věříme v transparentnost, spolupráci a neustálé učení.
+A hlavně, věříme, že změna začíná u každého z nás – a u
+jedné malé sazenice.', calendarTitle: 'Kalendář akcí a
+registrace', calendarDescription: 'Zde najdete přehled našich
+nadcházejících akcí. Vyberte si datum a zaregistrujte se, abyste
+se k nám připojili a pomohli nám růst!', selectDate: 'Vyberte
+datum', registerFor: 'Registrace na akci', yourName: 'Vaše jméno',
+yourEmail: 'Váš e-mail', message: 'Zpráva (nepovinné)',
+registerButton: 'Zaregistrovat se', registrationSuccess: 'Děkujeme
+za registraci! Brzy se vám ozveme.', registrationError: 'Něco se
+pokazilo při registraci. Zkuste to prosím znovu.', contactTitle:
+'Kontaktujte nás', contactIntro: 'Máte dotazy, nápady nebo se
+chcete zapojit? Rádi si s vámi popovídáme!', contactFormName:
+'Jméno', contactFormEmail: 'E-mail', contactFormMessage: 'Zpráva',
+sendButton: 'Odeslat', contactSuccess: 'Děkujeme za zprávu! Ozveme
+se vám co nejdříve.', contactError: 'Něco se pokazilo při
+odesílání zprávy. Zkuste to prosím znovu.', followUs: 'Sledujte
+nás na Instagramu', allRightsReserved: 'Všechna práva vyhrazena.',
+prevMonth: 'Předchozí měsíc', nextMonth: 'Další měsíc',
+weekdays: ['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne'], jan:
+'Leden', feb: 'Únor', mar: 'Březen', apr: 'Duben', may: 'Květen',
+jun: 'Červen', jul: 'Červenec', aug: 'Srpen', sep: 'Září', oct:
+'Říjen', nov: 'Listopad', dec: 'Prosinec', noEvent: 'Na tento den
+nejsou naplánovány žádné akce.', eventDetails: 'Podrobnosti o
+události', eventTitle: 'Název události', eventDescription: 'Popis
+události', eventLocation: 'Místo', eventTime: 'Čas', close:
+'Zavřít', eventPlaceholderTitle: 'Veselé Sázení Stromů',
+eventPlaceholderDescription: 'Přijďte se k nám připojit na den
+plný sázení stromů, smíchu a čerstvého vzduchu! Zajistíme
+nářadí, sazenice a dobrou náladu. Jen si nezapomeňte vzít
+pevnou obuv a smysl pro humor!', eventPlaceholderLocation: 'Místní
+lesopark', eventPlaceholderTime: '9:00 - 16:00', }, en: { home:
+'Home', about: 'About Us', calendar: 'Calendar', contact: 'Contact',
+language: 'Language', heroTitle: 'Nech mě růst', heroSubtitle:
+'Where Nature and People Grow Together', heroDescription: 'We help
+nature breathe and people connect. We plant trees, cultivate
+communities, and spread joy – with a touch of humor and a lot of
+love for the earth.', ourVisionTitle: 'Our Vision', ourVisionText:
+'We envision a world where every tree is considered a friend and
+every community a garden. We want people to reconnect with nature and
+understand that we are all part of one big ecosystem. And yes,
+sometimes we get dirty, but that\'s the fun part, right?',
+ourPhilosophyTitle: 'Our Philosophy (with a Smile)',
+ourPhilosophyText: 'We believe that even the smallest seedling has
+the potential to grow into a majestic tree. Similarly, we believe in
+the power of every individual and community. We don\'t take ourselves
+too seriously, but we take our work seriously. Because, honestly, who
+wouldn\'t want to live in a world with more oxygen and fewer worries?
+Our motto? &quot;Don\'t just water the flowers, water the souls
+too!&quot;', aboutTitle: 'About Nech mě růst', aboutIntro: 'We are
+a group of enthusiasts who believe in the power of nature and
+community. Our mission is simple: to plant trees, educate and inspire
+people to protect the environment, all with joy and lightness.',
+aboutMission: 'Our Mission', aboutMissionText: 'We plant trees in
+areas where they are most needed, organize educational workshops for
+children and adults, and create a platform for sharing knowledge and
+experiences about sustainability. We want everyone to feel part of
+the solution, not the problem.', aboutValues: 'Our Values',
+aboutValuesText: 'Nature is our home, community is our strength, and
+humor is our secret weapon. We believe in transparency, cooperation,
+and continuous learning. And most importantly, we believe that change
+starts with each of us – and with one small seedling.',
+calendarTitle: 'Events Calendar and Registration',
+calendarDescription: 'Here you will find an overview of our upcoming
+events. Select a date and register to join us and help us grow!',
+selectDate: 'Select a date', registerFor: 'Register for Event',
+yourName: 'Your Name', yourEmail: 'Your Email', message: 'Message
+(optional)', registerButton: 'Register', registrationSuccess: 'Thank
+you for your registration! We will contact you soon.',
+registrationError: 'Something went wrong with your registration.
+Please try again.', contactTitle: 'Contact Us', contactIntro: 'Do you
+have questions, ideas, or want to get involved? We\'d love to hear
+from you!', contactFormName: 'Name', contactFormEmail: 'Email',
+contactFormMessage: 'Message', sendButton: 'Send', contactSuccess:
+'Thank you for your message! We will get back to you as soon as
+possible.', contactError: 'Something went wrong sending your message.
+Please try again.', followUs: 'Follow us on Instagram',
+allRightsReserved: 'All rights reserved.', prevMonth: 'Previous
+Month', nextMonth: 'Next Month', weekdays: ['Mon', 'Tue', 'Wed',
+'Thu', 'Fri', 'Sat', 'Sun'], jan: 'January', feb: 'February', mar:
+'March', apr: 'April', may: 'May', jun: 'June', jul: 'July', aug:
+'August', sep: 'September', oct: 'October', nov: 'November', dec:
+'December', noEvent: 'No events scheduled for this day.',
+eventDetails: 'Event Details', eventTitle: 'Event Title',
+eventDescription: 'Event Description', eventLocation: 'Location',
+eventTime: 'Time', close: 'Close', eventPlaceholderTitle: 'Joyful
+Tree Planting', eventPlaceholderDescription: 'Come join us for a day
+full of tree planting, laughter, and fresh air! We\'ll provide tools,
+seedlings, and good vibes. Just remember to bring sturdy shoes and a
+sense of humor!', eventPlaceholderLocation: 'Local Forest Park',
+eventPlaceholderTime: '9:00 AM - 4:00 PM', }, }; const
+LanguageProvider = ({ children }) =&gt; { const [lang, setLang] =
+useState('cs'); // Default language is Czech const toggleLanguage =
+() =&gt; { setLang((prevLang) =&gt; (prevLang === 'cs' ? 'en' :
+'cs')); }; const t = (key) =&gt; translations[lang][key] || key;
+return ( &lt;LanguageContext.Provider value={{ lang, toggleLanguage,
+t }}&gt; {children} &lt;/LanguageContext.Provider&gt; ); }; // ---
+Components --- const Header = ({ onNavigate, currentPage }) =&gt; {
+const { lang, toggleLanguage, t } = useContext(LanguageContext);
+const [isMenuOpen, setIsMenuOpen] = useState(false); const navItems =
+[ { name: t('home'), page: 'home' }, { name: t('about'), page:
+'about' }, { name: t('calendar'), page: 'calendar' }, { name:
+t('contact'), page: 'contact' }, ]; return ( &lt;header
+className=&quot;bg-green-800 text-white p-4 shadow-lg sticky top-0
+z-50&quot;&gt; &lt;div className=&quot;container mx-auto flex
+justify-between items-center flex-wrap&quot;&gt; &lt;div
+className=&quot;flex items-center&quot;&gt; &lt;img src=&quot;logo.png&quot;
+alt=&quot;Nech mě růst Logo&quot; className=&quot;h-12 w-12
+rounded-full mr-3&quot; /&gt; &lt;h1 className=&quot;text-3xl
+font-bold font-inter&quot;&gt;Nech mě růst&lt;/h1&gt; &lt;/div&gt;
+&lt;div className=&quot;block lg:hidden&quot;&gt; &lt;button
+onClick={() =&gt; setIsMenuOpen(!isMenuOpen)} className=&quot;text-white
+focus:outline-none&quot;&gt; &lt;svg className=&quot;h-6 w-6&quot;
+fill=&quot;none&quot; viewBox=&quot;0 0 24 24&quot;
+stroke=&quot;currentColor&quot;&gt; {isMenuOpen ? ( &lt;path
+strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot;
+strokeWidth=&quot;2&quot; d=&quot;M6 18L18 6M6 6l12 12&quot; /&gt; )
+: ( &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot;
+strokeWidth=&quot;2&quot; d=&quot;M4 6h16M4 12h16M4 18h16&quot; /&gt;
+)} &lt;/svg&gt; &lt;/button&gt; &lt;/div&gt; &lt;nav
+className={`${isMenuOpen ? 'block' : 'hidden'} lg:flex
+lg:items-center lg:w-auto w-full mt-4 lg:mt-0`}&gt; &lt;ul
+className=&quot;lg:flex items-center space-y-4 lg:space-y-0
+lg:space-x-8 text-lg&quot;&gt; {navItems.map((item) =&gt; ( &lt;li
+key={item.page}&gt; &lt;a href=&quot;#&quot; onClick={(e) =&gt; {
+e.preventDefault(); onNavigate(item.page); setIsMenuOpen(false); }}
+className={`hover:text-green-300 transition-colors duration-300
+${currentPage === item.page ? 'font-bold text-green-300' : ''}`} &gt;
+{item.name} &lt;/a&gt; &lt;/li&gt; ))} &lt;li&gt; &lt;button
+onClick={toggleLanguage} className=&quot;bg-green-700
+hover:bg-green-600 text-white py-2 px-4 rounded-full
+transition-colors duration-300 shadow-md&quot; &gt; {t('language')}:
+{lang.toUpperCase()} &lt;/button&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/nav&gt;
+&lt;/div&gt; &lt;/header&gt; ); }; const Footer = () =&gt; { const {
+t } = useContext(LanguageContext); return ( &lt;footer
+className=&quot;bg-green-900 text-white p-6 text-center shadow-inner
+mt-8&quot;&gt; &lt;div className=&quot;container mx-auto&quot;&gt; &lt;p
+className=&quot;text-lg mb-4&quot;&gt;{t('followUs')}: &lt;a
+href=&quot;https://www.instagram.com/nech_me_rust/&quot;
+target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;
+className=&quot;text-green-300 hover:underline&quot;&gt;@nech_me_rust&lt;/a&gt;&lt;/p&gt;
+&lt;p className=&quot;text-sm&quot;&gt;&amp;copy; {new
+Date().getFullYear()} Nech mě růst. {t('allRightsReserved')}.&lt;/p&gt;
+&lt;/div&gt; &lt;/footer&gt; ); }; const HomePage = () =&gt; { const
+{ t } = useContext(LanguageContext); return ( &lt;main
+className=&quot;container mx-auto p-4 md:p-8&quot;&gt; {/* Hero
+Section */} &lt;section className=&quot;bg-gradient-to-br
+from-green-700 to-green-900 text-white rounded-3xl shadow-xl p-8
+md:p-16 text-center mb-12 relative overflow-hidden&quot;&gt; &lt;div
+className=&quot;absolute inset-0 bg-cover bg-center opacity-20&quot;
+style={{ backgroundImage:
+'url(&quot;https://placehold.co/1200x600/344e41/a3b18a?text=Forest+Background&quot;)'
+}}&gt;&lt;/div&gt; &lt;div className=&quot;relative z-10&quot;&gt;
+&lt;h2 className=&quot;text-5xl md:text-6xl font-extrabold mb-4
+leading-tight font-inter&quot;&gt;{t('heroTitle')}&lt;/h2&gt; &lt;p
+className=&quot;text-2xl md:text-3xl font-light
+mb-6&quot;&gt;{t('heroSubtitle')}&lt;/p&gt; &lt;p className=&quot;text-lg
+md:text-xl max-w-3xl mx-auto&quot;&gt;{t('heroDescription')}&lt;/p&gt;
+&lt;button className=&quot;mt-8 bg-green-500 hover:bg-green-400
+text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg
+transform hover:scale-105 transition-all duration-300&quot;&gt;
+{t('calendar')} &lt;/button&gt; &lt;/div&gt; &lt;/section&gt; {/* Our
+Vision Section */} &lt;section className=&quot;bg-white rounded-3xl
+shadow-xl p-8 md:p-12 mb-12 border border-green-200&quot;&gt; &lt;h3
+className=&quot;text-4xl font-bold text-green-800 mb-6 text-center
+font-inter&quot;&gt;{t('ourVisionTitle')}&lt;/h3&gt; &lt;p
+className=&quot;text-lg text-gray-700 leading-relaxed text-center
+max-w-4xl mx-auto&quot;&gt;{t('ourVisionText')}&lt;/p&gt; &lt;/section&gt;
+{/* Our Philosophy Section (with humor) */} &lt;section
+className=&quot;bg-green-100 rounded-3xl shadow-xl p-8 md:p-12 mb-12
+border border-green-300&quot;&gt; &lt;h3 className=&quot;text-4xl
+font-bold text-green-800 mb-6 text-center
+font-inter&quot;&gt;{t('ourPhilosophyTitle')}&lt;/h3&gt; &lt;p
+className=&quot;text-lg text-gray-700 leading-relaxed text-center
+max-w-4xl mx-auto&quot;&gt;{t('ourPhilosophyText')}&lt;/p&gt;
+&lt;/section&gt; {/* Call to Action Section */} &lt;section
+className=&quot;bg-green-800 text-white rounded-3xl shadow-xl p-8
+md:p-16 text-center&quot;&gt; &lt;h3 className=&quot;text-4xl
+font-bold mb-6 font-inter&quot;&gt;Přidejte se k nám!&lt;/h3&gt; &lt;p
+className=&quot;text-xl mb-8&quot;&gt;Pomozte nám sázet stromy a
+budovat zelenější budoucnost.&lt;/p&gt; &lt;button
+className=&quot;bg-green-500 hover:bg-green-400 text-white font-bold
+py-3 px-8 rounded-full text-xl shadow-lg transform hover:scale-105
+transition-all duration-300&quot;&gt; Zapojte se &lt;/button&gt;
+&lt;/section&gt; &lt;/main&gt; ); }; const AboutPage = () =&gt; {
+const { t } = useContext(LanguageContext); return ( &lt;main
+className=&quot;container mx-auto p-4 md:p-8&quot;&gt; &lt;section
+className=&quot;bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-12
+border border-green-200&quot;&gt; &lt;h2 className=&quot;text-4xl
+font-bold text-green-800 mb-6 text-center
+font-inter&quot;&gt;{t('aboutTitle')}&lt;/h2&gt; &lt;p
+className=&quot;text-lg text-gray-700 leading-relaxed mb-8
+text-center max-w-4xl mx-auto&quot;&gt;{t('aboutIntro')}&lt;/p&gt;
+&lt;div className=&quot;grid md:grid-cols-2 gap-8&quot;&gt; &lt;div
+className=&quot;bg-green-50 p-6 rounded-2xl shadow-md border
+border-green-100&quot;&gt; &lt;h3 className=&quot;text-3xl font-bold
+text-green-700 mb-4 font-inter&quot;&gt;{t('aboutMission')}&lt;/h3&gt;
+&lt;p className=&quot;text-md text-gray-600
+leading-relaxed&quot;&gt;{t('aboutMissionText')}&lt;/p&gt; &lt;/div&gt;
+&lt;div className=&quot;bg-green-50 p-6 rounded-2xl shadow-md border
+border-green-100&quot;&gt; &lt;h3 className=&quot;text-3xl font-bold
+text-green-700 mb-4 font-inter&quot;&gt;{t('aboutValues')}&lt;/h3&gt;
+&lt;p className=&quot;text-md text-gray-600
+leading-relaxed&quot;&gt;{t('aboutValuesText')}&lt;/p&gt; &lt;/div&gt;
+&lt;/div&gt; &lt;div className=&quot;mt-12 text-center&quot;&gt; &lt;img
+src=&quot;https://placehold.co/800x400/a3b18a/344e41?text=Team+Planting+Trees&quot;
+alt=&quot;Team Planting Trees&quot; className=&quot;rounded-2xl
+shadow-lg mx-auto mb-6 w-full max-w-3xl&quot; /&gt; &lt;p
+className=&quot;text-lg text-gray-700&quot;&gt;
+{t('heroDescription')} {/* Reusing a description from homepage for
+illustration */} &lt;/p&gt; &lt;/div&gt; &lt;/section&gt; &lt;/main&gt;
+); }; const CalendarPage = () =&gt; { const { t } =
+useContext(LanguageContext); const [currentDate, setCurrentDate] =
+useState(new Date()); const [selectedDate, setSelectedDate] =
+useState(null); const [showEventModal, setShowEventModal] =
+useState(false); const [registrationMessage, setRegistrationMessage]
+= useState(''); // Placeholder for events - in a real app, this would
+come from a backend/Firestore const events = { // Format:
+'YYYY-MM-DD': { title: '...', description: '...', location: '...',
+time: '...' } '2025-08-15': { title: t('eventPlaceholderTitle'),
+description: t('eventPlaceholderDescription'), location:
+t('eventPlaceholderLocation'), time: t('eventPlaceholderTime'), },
+'2025-09-01': { title: t('eventPlaceholderTitle'), description:
+t('eventPlaceholderDescription'), location:
+t('eventPlaceholderLocation'), time: t('eventPlaceholderTime'), }, };
+const getDaysInMonth = (year, month) =&gt; new Date(year, month + 1,
+0).getDate(); const getFirstDayOfMonth = (year, month) =&gt; new
+Date(year, month, 1).getDay(); // 0 = Sunday, 1 = Monday const
+navigateMonth = (direction) =&gt; { setCurrentDate((prevDate) =&gt; {
+const newDate = new Date(prevDate);
+newDate.setMonth(prevDate.getMonth() + direction); return newDate;
+}); setSelectedDate(null); // Reset selected date when month changes
+setRegistrationMessage(''); }; const handleDateClick = (day) =&gt; {
+const date = new Date(currentDate.getFullYear(),
+currentDate.getMonth(), day); setSelectedDate(date);
+setShowEventModal(true); setRegistrationMessage(''); }; const
+renderCalendarDays = useCallback(() =&gt; { const year =
+currentDate.getFullYear(); const month = currentDate.getMonth();
+const numDays = getDaysInMonth(year, month); const firstDay =
+getFirstDayOfMonth(year, month); const startingDay = firstDay === 0 ?
+6 : firstDay - 1; // Adjust for Monday start (0=Sun, 1=Mon... so 0
+becomes 6, 1 stays 0) const days = []; for (let i = 0; i &lt;
+startingDay; i++) { days.push(&lt;div key={`empty-${i}`}
+className=&quot;p-2&quot;&gt;&lt;/div&gt;); } for (let day = 1; day
+&lt;= numDays; day++) { const fullDate = `${year}-${String(month +
+1).padStart(2, '0')}-${String(day).padStart(2, '0')}`; const hasEvent
+= events[fullDate]; const isSelected = selectedDate &amp;&amp;
+selectedDate.getDate() === day &amp;&amp; selectedDate.getMonth() ===
+month &amp;&amp; selectedDate.getFullYear() === year; days.push( &lt;div
+key={day} className={`p-2 text-center rounded-lg cursor-pointer
+transition-all duration-200 ${hasEvent ? 'bg-green-200
+hover:bg-green-300 font-bold text-green-900' : 'bg-gray-100
+hover:bg-gray-200 text-gray-800'} ${isSelected ? 'ring-2
+ring-green-500 bg-green-300' : ''} flex flex-col items-center
+justify-center `} onClick={() =&gt; handleDateClick(day)} &gt;
+&lt;span&gt;{day}&lt;/span&gt; {hasEvent &amp;&amp; ( &lt;span
+className=&quot;text-xs mt-1 text-green-700&quot;&gt;●&lt;/span&gt;
+)} &lt;/div&gt; ); } return days; }, [currentDate, selectedDate,
+events, t]); const monthNames = [ t('jan'), t('feb'), t('mar'),
+t('apr'), t('may'), t('jun'), t('jul'), t('aug'), t('sep'), t('oct'),
+t('nov'), t('dec') ]; const handleRegistrationSubmit = (e) =&gt; {
+e.preventDefault(); // In a real application, you would send this
+data to a backend (e.g., Firestore) // For this example, we'll just
+simulate success/failure const name = e.target.name.value; const
+email = e.target.email.value; const message = e.target.message.value;
+console.log('Registration Data:', { date: selectedDate ?
+selectedDate.toDateString() : 'N/A', name, email, message, }); if
+(name &amp;&amp; email) {
+setRegistrationMessage(t('registrationSuccess')); // Clear form
+e.target.reset(); } else {
+setRegistrationMessage(t('registrationError')); } }; return ( &lt;main
+className=&quot;container mx-auto p-4 md:p-8&quot;&gt; &lt;section
+className=&quot;bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-12
+border border-green-200&quot;&gt; &lt;h2 className=&quot;text-4xl
+font-bold text-green-800 mb-6 text-center
+font-inter&quot;&gt;{t('calendarTitle')}&lt;/h2&gt; &lt;p
+className=&quot;text-lg text-gray-700 leading-relaxed mb-8
+text-center max-w-4xl mx-auto&quot;&gt;{t('calendarDescription')}&lt;/p&gt;
+&lt;div className=&quot;max-w-4xl mx-auto bg-green-50 rounded-2xl
+shadow-lg p-6 border border-green-100&quot;&gt; &lt;div
+className=&quot;flex justify-between items-center mb-6&quot;&gt;
+&lt;button onClick={() =&gt; navigateMonth(-1)}
+className=&quot;bg-green-700 hover:bg-green-600 text-white p-2
+rounded-full shadow-md transition-colors duration-300&quot; &gt; &lt;svg
+className=&quot;h-6 w-6&quot; fill=&quot;none&quot; viewBox=&quot;0 0
+24 24&quot; stroke=&quot;currentColor&quot;&gt; &lt;path
+strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot;
+strokeWidth=&quot;2&quot; d=&quot;M15 19l-7-7 7-7&quot; /&gt; &lt;/svg&gt;
+&lt;/button&gt; &lt;h3 className=&quot;text-2xl font-bold
+text-green-800&quot;&gt; {monthNames[currentDate.getMonth()]}
+{currentDate.getFullYear()} &lt;/h3&gt; &lt;button onClick={() =&gt;
+navigateMonth(1)} className=&quot;bg-green-700 hover:bg-green-600
+text-white p-2 rounded-full shadow-md transition-colors duration-300&quot;
+&gt; &lt;svg className=&quot;h-6 w-6&quot; fill=&quot;none&quot;
+viewBox=&quot;0 0 24 24&quot; stroke=&quot;currentColor&quot;&gt;
+&lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot;
+strokeWidth=&quot;2&quot; d=&quot;M9 5l7 7-7 7&quot; /&gt; &lt;/svg&gt;
+&lt;/button&gt; &lt;/div&gt; &lt;div className=&quot;grid grid-cols-7
+gap-2 text-center font-semibold text-green-800 mb-4&quot;&gt;
+{t('weekdays').map((day) =&gt; ( &lt;div key={day}
+className=&quot;p-2&quot;&gt;{day}&lt;/div&gt; ))} &lt;/div&gt; &lt;div
+className=&quot;grid grid-cols-7 gap-2&quot;&gt;
+{renderCalendarDays()} &lt;/div&gt; &lt;/div&gt; {showEventModal &amp;&amp;
+selectedDate &amp;&amp; ( &lt;div className=&quot;fixed inset-0
+bg-black bg-opacity-50 flex items-center justify-center z-50 p-4&quot;&gt;
+&lt;div className=&quot;bg-white rounded-3xl p-8 max-w-lg w-full
+shadow-2xl relative&quot;&gt; &lt;button onClick={() =&gt;
+setShowEventModal(false)} className=&quot;absolute top-4 right-4
+text-gray-600 hover:text-gray-900 text-2xl&quot; &gt; &amp;times;
+&lt;/button&gt; &lt;h3 className=&quot;text-3xl font-bold
+text-green-800 mb-4 text-center&quot;&gt;{t('eventDetails')}&lt;/h3&gt;
+&lt;p className=&quot;text-xl text-gray-700 mb-4 text-center&quot;&gt;
+{t('selectDate')}: {selectedDate.toLocaleDateString(lang === 'cs' ?
+'cs-CZ' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long',
+day: 'numeric' })} &lt;/p&gt;
+{events[`${selectedDate.getFullYear()}-${String(selectedDate.getMonth()
++ 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2,
+'0')}`] ? ( &lt;div className=&quot;mb-6 bg-green-50 p-4 rounded-xl
+border border-green-100&quot;&gt; &lt;h4 className=&quot;text-2xl
+font-semibold text-green-700
+mb-2&quot;&gt;{events[`${selectedDate.getFullYear()}-${String(selectedDate.getMonth()
++ 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2,
+'0')}`].title}&lt;/h4&gt; &lt;p className=&quot;text-gray-700
+mb-2&quot;&gt;{events[`${selectedDate.getFullYear()}-${String(selectedDate.getMonth()
++ 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2,
+'0')}`].description}&lt;/p&gt; &lt;p className=&quot;text-gray-600
+text-sm&quot;&gt;&lt;strong&gt;{t('eventLocation')}:&lt;/strong&gt;
+{events[`${selectedDate.getFullYear()}-${String(selectedDate.getMonth()
++ 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2,
+'0')}`].location}&lt;/p&gt; &lt;p className=&quot;text-gray-600
+text-sm&quot;&gt;&lt;strong&gt;{t('eventTime')}:&lt;/strong&gt;
+{events[`${selectedDate.getFullYear()}-${String(selectedDate.getMonth()
++ 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2,
+'0')}`].time}&lt;/p&gt; &lt;/div&gt; ) : ( &lt;p
+className=&quot;text-center text-gray-600 mb-6&quot;&gt;{t('noEvent')}&lt;/p&gt;
+)} &lt;h4 className=&quot;text-2xl font-bold text-green-800 mb-4
+text-center&quot;&gt;{t('registerFor')}&lt;/h4&gt; &lt;form
+onSubmit={handleRegistrationSubmit} className=&quot;space-y-4&quot;&gt;
+&lt;div&gt; &lt;label htmlFor=&quot;name&quot; className=&quot;block
+text-gray-700 font-semibold mb-2&quot;&gt;{t('yourName')}:&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot;
+className=&quot;w-full p-3 border border-gray-300 rounded-lg
+focus:ring-2 focus:ring-green-500 focus:border-transparent
+transition-all duration-200&quot; required /&gt; &lt;/div&gt; &lt;div&gt;
+&lt;label htmlFor=&quot;email&quot; className=&quot;block
+text-gray-700 font-semibold mb-2&quot;&gt;{t('yourEmail')}:&lt;/label&gt;
+&lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot;
+className=&quot;w-full p-3 border border-gray-300 rounded-lg
+focus:ring-2 focus:ring-green-500 focus:border-transparent
+transition-all duration-200&quot; required /&gt; &lt;/div&gt; &lt;div&gt;
+&lt;label htmlFor=&quot;message&quot; className=&quot;block
+text-gray-700 font-semibold mb-2&quot;&gt;{t('message')}:&lt;/label&gt;
+&lt;textarea id=&quot;message&quot; name=&quot;message&quot; rows=&quot;4&quot;
+className=&quot;w-full p-3 border border-gray-300 rounded-lg
+focus:ring-2 focus:ring-green-500 focus:border-transparent
+transition-all duration-200&quot; &gt;&lt;/textarea&gt; &lt;/div&gt;
+&lt;button type=&quot;submit&quot; className=&quot;w-full
+bg-green-700 hover:bg-green-600 text-white font-bold py-3 px-6
+rounded-full text-lg shadow-lg transform hover:scale-105
+transition-all duration-300&quot; &gt; {t('registerButton')}
+&lt;/button&gt; {registrationMessage &amp;&amp; ( &lt;p
+className={`mt-4 text-center font-semibold
+${registrationMessage.includes('Děkujeme') ||
+registrationMessage.includes('Thank you') ? 'text-green-600' :
+'text-red-500'}`}&gt; {registrationMessage} &lt;/p&gt; )} &lt;/form&gt;
+&lt;/div&gt; &lt;/div&gt; )} &lt;/section&gt; &lt;/main&gt; ); };
+const ContactPage = () =&gt; { const { t } =
+useContext(LanguageContext); const [contactMessage,
+setContactMessage] = useState(''); const handleContactSubmit = (e) =&gt;
+{ e.preventDefault(); // In a real application, you would send this
+data to a backend (e.g., email service) const name =
+e.target.name.value; const email = e.target.email.value; const
+message = e.target.message.value; console.log('Contact Form Data:', {
+name, email, message }); if (name &amp;&amp; email &amp;&amp;
+message) { setContactMessage(t('contactSuccess')); e.target.reset();
+// Clear form } else { setContactMessage(t('contactError')); } };
+return ( &lt;main className=&quot;container mx-auto p-4 md:p-8&quot;&gt;
+&lt;section className=&quot;bg-white rounded-3xl shadow-xl p-8
+md:p-12 mb-12 border border-green-200&quot;&gt; &lt;h2
+className=&quot;text-4xl font-bold text-green-800 mb-6 text-center
+font-inter&quot;&gt;{t('contactTitle')}&lt;/h2&gt; &lt;p
+className=&quot;text-lg text-gray-700 leading-relaxed mb-8
+text-center max-w-4xl mx-auto&quot;&gt;{t('contactIntro')}&lt;/p&gt;
+&lt;div className=&quot;max-w-xl mx-auto bg-green-50 p-8 rounded-2xl
+shadow-lg border border-green-100&quot;&gt; &lt;form
+onSubmit={handleContactSubmit} className=&quot;space-y-6&quot;&gt;
+&lt;div&gt; &lt;label htmlFor=&quot;contactName&quot;
+className=&quot;block text-gray-700 font-semibold
+mb-2&quot;&gt;{t('contactFormName')}:&lt;/label&gt; &lt;input
+type=&quot;text&quot; id=&quot;contactName&quot; name=&quot;name&quot;
+className=&quot;w-full p-3 border border-gray-300 rounded-lg
+focus:ring-2 focus:ring-green-500 focus:border-transparent
+transition-all duration-200&quot; required /&gt; &lt;/div&gt; &lt;div&gt;
+&lt;label htmlFor=&quot;contactEmail&quot; className=&quot;block
+text-gray-700 font-semibold mb-2&quot;&gt;{t('contactFormEmail')}:&lt;/label&gt;
+&lt;input type=&quot;email&quot; id=&quot;contactEmail&quot;
+name=&quot;email&quot; className=&quot;w-full p-3 border
+border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500
+focus:border-transparent transition-all duration-200&quot; required
+/&gt; &lt;/div&gt; &lt;div&gt; &lt;label htmlFor=&quot;contactMessage&quot;
+className=&quot;block text-gray-700 font-semibold
+mb-2&quot;&gt;{t('message')}:&lt;/label&gt; &lt;textarea
+id=&quot;contactMessage&quot; name=&quot;message&quot; rows=&quot;6&quot;
+className=&quot;w-full p-3 border border-gray-300 rounded-lg
+focus:ring-2 focus:ring-green-500 focus:border-transparent
+transition-all duration-200&quot; required &gt;&lt;/textarea&gt;
+&lt;/div&gt; &lt;button type=&quot;submit&quot; className=&quot;w-full
+bg-green-700 hover:bg-green-600 text-white font-bold py-3 px-6
+rounded-full text-lg shadow-lg transform hover:scale-105
+transition-all duration-300&quot; &gt; {t('sendButton')} &lt;/button&gt;
+{contactMessage &amp;&amp; ( &lt;p className={`mt-4 text-center
+font-semibold ${contactMessage.includes('Děkujeme') ||
+contactMessage.includes('Thank you') ? 'text-green-600' :
+'text-red-500'}`}&gt; {contactMessage} &lt;/p&gt; )} &lt;/form&gt;
+&lt;/div&gt; &lt;/section&gt; &lt;/main&gt; ); }; // --- Main App
+Component --- const App = () =&gt; { const [currentPage,
+setCurrentPage] = useState('home'); const handleNavigate = (page) =&gt;
+{ setCurrentPage(page); }; const renderPage = () =&gt; { switch
+(currentPage) { case 'home': return &lt;HomePage /&gt;; case 'about':
+return &lt;AboutPage /&gt;; case 'calendar': return &lt;CalendarPage
+/&gt;; case 'contact': return &lt;ContactPage /&gt;; default: return
+&lt;HomePage /&gt;; } }; return ( &lt;LanguageProvider&gt; &lt;div
+className=&quot;min-h-screen flex flex-col font-sans bg-green-50&quot;&gt;
+&lt;Header onNavigate={handleNavigate} currentPage={currentPage} /&gt;
+&lt;div className=&quot;flex-grow&quot;&gt; {renderPage()} &lt;/div&gt;
+&lt;Footer /&gt; &lt;/div&gt; &lt;/LanguageProvider&gt; ); }; const
+root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;App /&gt;); &lt;/script&gt; &lt;/body&gt; &lt;/html&gt;
+</p>
+</body>
+</html>
