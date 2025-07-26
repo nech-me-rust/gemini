@@ -1,0 +1,606 @@
+import React, { useState, createContext, useContext, useEffect, useCallback } from 'react';
+
+// --- Language Context ---
+const LanguageContext = createContext();
+
+const translations = {
+  cs: {
+    home: 'Domů',
+    about: 'O nás',
+    events: 'Akce', // Changed from Calendar
+    contact: 'Kontakt',
+    language: 'Jazyk',
+    heroTitle: 'Nech mě růst',
+    heroSubtitle: 'Kde příroda a lidé rostou společně',
+    heroDescription: 'Pomáháme přírodě dýchat a lidem se spojovat. Sázíme stromy, pěstujeme komunity a šíříme radost – s trochou humoru a spoustou lásky k zemi.',
+    ourVisionTitle: 'Naše Vize',
+    ourVisionText: 'Představujeme si svět, kde je každý strom považován za přítele a každá komunita za zahradu. Chceme, aby se lidé znovu propojili s přírodou a pochopili, že jsme všichni součástí jednoho velkého ekosystému. A ano, občas se u toho ušpiníme, ale to je přece ta zábava!',
+    ourPhilosophyTitle: 'Naše Filozofie (s úsměvem)',
+    ourPhilosophyText: 'Věříme, že i ta nejmenší sazenice má potenciál vyrůst v majestátní strom. Stejně tak věříme v sílu každého jednotlivce a komunity. Nebereme se příliš vážně, ale naši práci ano. Protože, upřímně, kdo by nechtěl žít ve světě, kde je víc kyslíku a méně starostí? Naše motto? "Nezalívejte jen květiny, zalívejte i duše!"',
+    aboutTitle: 'O organizaci Nech mě růst',
+    aboutIntro: 'Jsme skupina nadšenců, kteří věří v sílu přírody a komunity. Naše mise je jednoduchá: sázet stromy, vzdělávat a inspirovat lidi k ochraně životního prostředí, a to vše s radostí a lehkostí.',
+    aboutMission: 'Naše mise',
+    aboutMissionText: 'Sázíme stromy v oblastech, kde je to nejvíce potřeba, organizujeme vzdělávací workshopy pro děti i dospělé, a vytváříme platformu pro sdílení znalostí a zkušeností o udržitelnosti. Chceme, aby se každý cítil součástí řešení, ne problému.',
+    aboutValues: 'Naše hodnoty',
+    aboutValuesText: 'Příroda je náš domov, komunita naše síla a humor naše tajná zbraň. Věříme v transparentnost, spolupráci a neustálé učení. A hlavně, věříme, že změna začíná u každého z nás – a u jedné malé sazenice.',
+    eventsTitle: 'Nadcházející akce', // New title for events section
+    eventsDescription: 'Připojte se k nám na našich nadcházejících akcích! Každá akce je příležitostí, jak se spojit s přírodou, naučit se něco nového a přispět k zelenější budoucnosti. Vyberte si akci a zaregistrujte se!',
+    registerButton: 'Zaregistrovat se',
+    eventDetails: 'Podrobnosti o události',
+    yourName: 'Vaše jméno',
+    yourEmail: 'Váš e-mail',
+    message: 'Zpráva (nepovinné)',
+    registrationSuccess: 'Děkujeme za registraci! Brzy se vám ozveme.',
+    registrationError: 'Něco se pokazilo při registraci. Zkuste to prosím znovu.',
+    contactTitle: 'Kontaktujte nás',
+    contactIntro: 'Máte dotazy, nápady nebo se chcete zapojit? Rádi si s vámi popovídáme!',
+    contactFormName: 'Jméno',
+    contactFormEmail: 'E-mail',
+    contactFormMessage: 'Zpráva',
+    sendButton: 'Odeslat',
+    contactSuccess: 'Děkujeme za zprávu! Ozveme se vám co nejdříve.',
+    contactError: 'Něco se pokazilo při odesílání zprávy. Zkuste to prosím znovu.',
+    followUs: 'Sledujte nás na Instagramu',
+    allRightsReserved: 'Všechna práva vyhrazena.',
+    close: 'Zavřít',
+    eventPlaceholder1Title: 'Sázení stromků v lesoparku',
+    eventPlaceholder1Description: 'Přijďte se k nám připojit na den plný sázení stromů, smíchu a čerstvého vzduchu! Zajistíme nářadí, sazenice a dobrou náladu. Jen si nezapomeňte vzít pevnou obuv a smysl pro humor!',
+    eventPlaceholder1Location: 'Místní lesopark',
+    eventPlaceholder1Date: '15. srpna 2025',
+    eventPlaceholder1Time: '9:00 - 16:00',
+    eventPlaceholder2Title: 'Workshop: Domácí kompostování',
+    eventPlaceholder2Description: 'Naučte se základy domácího kompostování a proměňte svůj organický odpad v bohatou půdu pro vaše rostliny. Praktické ukázky a tipy pro začátečníky i pokročilé.',
+    eventPlaceholder2Location: 'Komunitní centrum',
+    eventPlaceholder2Date: '1. září 2025',
+    eventPlaceholder2Time: '17:00 - 19:00',
+    eventPlaceholder3Title: 'Čištění potoka a okolí',
+    eventPlaceholder3Description: 'Pomozte nám vyčistit místní potok a jeho břehy od odpadků. Přispějete tak k čistšímu životnímu prostředí pro všechny. Rukavice a pytle zajištěny.',
+    eventPlaceholder3Location: 'Potok u rybníka',
+    eventPlaceholder3Date: '20. září 2025',
+    eventPlaceholder3Time: '10:00 - 14:00',
+  },
+  en: {
+    home: 'Home',
+    about: 'About Us',
+    events: 'Events', // Changed from Calendar
+    contact: 'Contact',
+    language: 'Language',
+    heroTitle: 'Nech mě růst',
+    heroSubtitle: 'Where Nature and People Grow Together',
+    heroDescription: 'We help nature breathe and people connect. We plant trees, cultivate communities, and spread joy – with a touch of humor and a lot of love for the earth.',
+    ourVisionTitle: 'Our Vision',
+    ourVisionText: 'We envision a world where every tree is considered a friend and every community a garden. We want people to reconnect with nature and understand that we are all part of one big ecosystem. And yes, sometimes we get dirty, but that\'s the fun part, right?',
+    ourPhilosophyTitle: 'Our Philosophy (with a Smile)',
+    ourPhilosophyText: 'We believe that even the smallest seedling has the potential to grow into a majestic tree. Similarly, we believe in the power of every individual and community. We don\'t take ourselves too seriously, but we take our work seriously. Because, honestly, who wouldn\'t want to live in a world with more oxygen and fewer worries? Our motto? "Don\'t just water the flowers, water the souls too!"',
+    aboutTitle: 'About Nech mě růst',
+    aboutIntro: 'We are a group of enthusiasts who believe in the power of nature and community. Our mission is simple: to plant trees, educate and inspire people to protect the environment, all with joy and lightness.',
+    aboutMission: 'Our Mission',
+    aboutMissionText: 'We plant trees in areas where they are most needed, organize educational workshops for children and adults, and create a platform for sharing knowledge and experiences about sustainability. We want everyone to feel part of the solution, not the problem.',
+    aboutValues: 'Our Values',
+    aboutValuesText: 'Nature is our home, community is our strength, and humor is our secret weapon. We believe in transparency, cooperation, and continuous learning. And most importantly, we believe that change starts with each of us – and with one small seedling.',
+    eventsTitle: 'Upcoming Events', // New title for events section
+    eventsDescription: 'Join us for our upcoming events! Each event is an opportunity to connect with nature, learn something new, and contribute to a greener future. Choose an event and register!',
+    registerButton: 'Register',
+    eventDetails: 'Event Details',
+    yourName: 'Your Name',
+    yourEmail: 'Your Email',
+    message: 'Message (optional)',
+    registrationSuccess: 'Thank you for your registration! We will contact you soon.',
+    registrationError: 'Something went wrong with your registration. Please try again.',
+    contactTitle: 'Contact Us',
+    contactIntro: 'Do you have questions, ideas, or want to get involved? We\'d love to hear from you!',
+    contactFormName: 'Name',
+    contactFormEmail: 'Email',
+    contactFormMessage: 'Message',
+    sendButton: 'Send',
+    contactSuccess: 'Thank you for your message! We will get back to you as soon as possible.',
+    contactError: 'Something went wrong sending your message. Please try again.',
+    followUs: 'Follow us on Instagram',
+    allRightsReserved: 'All rights reserved.',
+    close: 'Close',
+    eventPlaceholder1Title: 'Tree Planting in the Forest Park',
+    eventPlaceholder1Description: 'Come join us for a day full of tree planting, laughter, and fresh air! We\'ll provide tools, seedlings, and good vibes. Just remember to bring sturdy shoes and a sense of humor!',
+    eventPlaceholder1Location: 'Local Forest Park',
+    eventPlaceholder1Date: 'August 15, 2025',
+    eventPlaceholder1Time: '9:00 AM - 4:00 PM',
+    eventPlaceholder2Title: 'Workshop: Home Composting',
+    eventPlaceholder2Description: 'Learn the basics of home composting and turn your organic waste into rich soil for your plants. Practical demonstrations and tips for beginners and advanced.',
+    eventPlaceholder2Location: 'Community Center',
+    eventPlaceholder2Date: 'September 1, 2025',
+    eventPlaceholder2Time: '5:00 PM - 7:00 PM',
+    eventPlaceholder3Title: 'Stream and Surroundings Cleanup',
+    eventPlaceholder3Description: 'Help us clean up the local stream and its banks from litter. You will contribute to a cleaner environment for everyone. Gloves and bags provided.',
+    eventPlaceholder3Location: 'Stream by the Pond',
+    eventPlaceholder3Date: 'September 20, 2025',
+    eventPlaceholder3Time: '10:00 AM - 2:00 PM',
+  },
+};
+
+const LanguageProvider = ({ children }) => {
+  const [lang, setLang] = useState('cs'); // Default language is Czech
+
+  const toggleLanguage = () => {
+    setLang((prevLang) => (prevLang === 'cs' ? 'en' : 'cs'));
+  };
+
+  const t = (key) => translations[lang][key] || key;
+
+  return (
+    <LanguageContext.Provider value={{ lang, toggleLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+// --- Components ---
+
+const Header = ({ onNavigate, currentPage }) => {
+  const { lang, toggleLanguage, t } = useContext(LanguageContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navItems = [
+    { name: t('home'), page: 'home' },
+    { name: t('about'), page: 'about' },
+    { name: t('events'), page: 'events' }, // Changed from Calendar
+    { name: t('contact'), page: 'contact' },
+  ];
+
+  return (
+    <header className="bg-green-800 text-white p-4 shadow-lg sticky top-0 z-50">
+      <div className="container mx-auto flex justify-between items-center flex-wrap">
+        <div className="flex items-center">
+          <img src="logo.png" alt="Nech mě růst Logo" className="h-12 w-12 rounded-full mr-3" />
+          <h1 className="text-3xl md:text-4xl font-bold font-inter">Nech mě růst</h1>
+        </div>
+        <div className="block lg:hidden">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white focus:outline-none">
+            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {isMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+        <nav className={`${isMenuOpen ? 'block' : 'hidden'} lg:flex lg:items-center lg:w-auto w-full mt-4 lg:mt-0`}>
+          <ul className="lg:flex items-center space-y-4 lg:space-y-0 lg:space-x-8 text-lg">
+            {navItems.map((item) => (
+              <li key={item.page}>
+                <a
+                  href="#"
+                  onClick={(e) => { e.preventDefault(); onNavigate(item.page); setIsMenuOpen(false); }}
+                  className={`hover:text-green-300 transition-colors duration-300 ${currentPage === item.page ? 'font-bold text-green-300' : ''}`}
+                >
+                  {item.name}
+                </a>
+              </li>
+            ))}
+            <li>
+              <button
+                onClick={toggleLanguage}
+                className="bg-green-700 hover:bg-green-600 text-white py-2 px-4 rounded-full text-base transition-colors duration-300 shadow-md"
+              >
+                {t('language')}: {lang.toUpperCase()}
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  );
+};
+
+const Footer = () => {
+  const { t } = useContext(LanguageContext);
+  return (
+    <footer className="bg-green-900 text-white p-6 text-center shadow-inner mt-8">
+      <div className="container mx-auto">
+        <p className="text-lg mb-4">{t('followUs')}: <a href="https://www.instagram.com/nech_me_rust/" target="_blank" rel="noopener noreferrer" className="text-green-300 hover:underline">@nech_me_rust</a></p>
+        <p className="text-sm">&copy; {new Date().getFullYear()} Nech mě růst. {t('allRightsReserved')}.</p>
+      </div>
+    </footer>
+  );
+};
+
+const HomePage = () => {
+  const { t } = useContext(LanguageContext);
+  return (
+    <main className="container mx-auto p-4 md:p-8">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-green-700 to-green-900 text-white rounded-3xl shadow-xl p-8 md:p-16 text-center mb-12 relative overflow-hidden transform transition-all duration-500 hover:scale-[1.01]">
+        <div className="absolute inset-0 bg-cover bg-center opacity-20 animate-pulse-slow" style={{ backgroundImage: 'url("https://placehold.co/1200x600/344e41/a3b18a?text=Forest+Background")' }}></div>
+        <div className="relative z-10">
+          <h2 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight font-inter drop-shadow-lg">{t('heroTitle')}</h2>
+          <p className="text-2xl md:text-4xl font-light mb-6 opacity-90">{t('heroSubtitle')}</p>
+          <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8">{t('heroDescription')}</p>
+          <button className="mt-8 bg-green-500 hover:bg-green-400 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-300 animate-bounce-once">
+            {t('events')}
+          </button>
+        </div>
+      </section>
+
+      {/* Our Vision Section */}
+      <section className="bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-12 border border-green-200 transform transition-all duration-500 hover:shadow-2xl">
+        <h3 className="text-4xl font-bold text-green-800 mb-6 text-center font-inter">{t('ourVisionTitle')}</h3>
+        <p className="text-lg text-gray-700 leading-relaxed text-center max-w-4xl mx-auto">{t('ourVisionText')}</p>
+      </section>
+
+      {/* Our Philosophy Section (with humor) */}
+      <section className="bg-green-100 rounded-3xl shadow-xl p-8 md:p-12 mb-12 border border-green-300 transform transition-all duration-500 hover:shadow-2xl">
+        <h3 className="text-4xl font-bold text-green-800 mb-6 text-center font-inter">{t('ourPhilosophyTitle')}</h3>
+        <p className="text-lg text-gray-700 leading-relaxed text-center max-w-4xl mx-auto">{t('ourPhilosophyText')}</p>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="bg-green-800 text-white rounded-3xl shadow-xl p-8 md:p-16 text-center transform transition-all duration-500 hover:scale-[1.01]">
+        <h3 className="text-4xl font-bold mb-6 font-inter">Přidejte se k nám!</h3>
+        <p className="text-xl mb-8">Pomozte nám sázet stromy a budovat zelenější budoucnost.</p>
+        <button className="bg-green-500 hover:bg-green-400 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-300">
+          Zapojte se
+        </button>
+      </section>
+    </main>
+  );
+};
+
+const AboutPage = () => {
+  const { t } = useContext(LanguageContext);
+  return (
+    <main className="container mx-auto p-4 md:p-8">
+      <section className="bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-12 border border-green-200">
+        <h2 className="text-4xl font-bold text-green-800 mb-6 text-center font-inter">{t('aboutTitle')}</h2>
+        <p className="text-lg text-gray-700 leading-relaxed mb-8 text-center max-w-4xl mx-auto">{t('aboutIntro')}</p>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-green-50 p-6 rounded-2xl shadow-md border border-green-100 transform transition-all duration-300 hover:scale-[1.02]">
+            <h3 className="text-3xl font-bold text-green-700 mb-4 font-inter">{t('aboutMission')}</h3>
+            <p className="text-md text-gray-600 leading-relaxed">{t('aboutMissionText')}</p>
+          </div>
+          <div className="bg-green-50 p-6 rounded-2xl shadow-md border border-green-100 transform transition-all duration-300 hover:scale-[1.02]">
+            <h3 className="text-3xl font-bold text-green-700 mb-4 font-inter">{t('aboutValues')}</h3>
+            <p className="text-md text-gray-600 leading-relaxed">{t('aboutValuesText')}</p>
+          </div>
+        </div>
+
+        <div className="mt-12 text-center">
+          <img src="https://placehold.co/800x400/a3b18a/344e41?text=Team+Planting+Trees" alt="Team Planting Trees" className="rounded-2xl shadow-lg mx-auto mb-6 w-full max-w-3xl" />
+          <p className="text-lg text-gray-700">
+            {t('heroDescription')} {/* Reusing a description from homepage for illustration */}
+          </p>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+const EventsPage = () => {
+  const { t } = useContext(LanguageContext);
+  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [registrationMessage, setRegistrationMessage] = useState('');
+
+  const events = [
+    {
+      id: 1,
+      title: t('eventPlaceholder1Title'),
+      description: t('eventPlaceholder1Description'),
+      location: t('eventPlaceholder1Location'),
+      date: t('eventPlaceholder1Date'),
+      time: t('eventPlaceholder1Time'),
+      image: 'https://placehold.co/600x400/81b29a/3a6b5a?text=Tree+Planting+Event'
+    },
+    {
+      id: 2,
+      title: t('eventPlaceholder2Title'),
+      description: t('eventPlaceholder2Description'),
+      location: t('eventPlaceholder2Location'),
+      date: t('eventPlaceholder2Date'),
+      time: t('eventPlaceholder2Time'),
+      image: 'https://placehold.co/600x400/96a68f/4b5b4e?text=Composting+Workshop'
+    },
+    {
+      id: 3,
+      title: t('eventPlaceholder3Title'),
+      description: t('eventPlaceholder3Description'),
+      location: t('eventPlaceholder3Location'),
+      date: t('eventPlaceholder3Date'),
+      time: t('eventPlaceholder3Time'),
+      image: 'https://placehold.co/600x400/6a994e/2d4b1f?text=Cleanup+Event'
+    },
+  ];
+
+  const handleRegisterClick = (event) => {
+    setSelectedEvent(event);
+    setShowRegistrationModal(true);
+    setRegistrationMessage('');
+  };
+
+  const handleRegistrationSubmit = (e) => {
+    e.preventDefault();
+    // In a real application, you would send this data to a backend (e.g., Firestore)
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const message = e.target.message.value;
+
+    console.log('Registration Data:', {
+      eventId: selectedEvent.id,
+      eventName: selectedEvent.title,
+      name,
+      email,
+      message,
+    });
+
+    if (name && email) {
+      setRegistrationMessage(t('registrationSuccess'));
+      e.target.reset();
+    } else {
+      setRegistrationMessage(t('registrationError'));
+    }
+  };
+
+  return (
+    <main className="container mx-auto p-4 md:p-8">
+      <section className="bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-12 border border-green-200">
+        <h2 className="text-4xl font-bold text-green-800 mb-6 text-center font-inter">{t('eventsTitle')}</h2>
+        <p className="text-lg text-gray-700 leading-relaxed mb-8 text-center max-w-4xl mx-auto">{t('eventsDescription')}</p>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {events.map((event) => (
+            <div key={event.id} className="bg-green-50 rounded-2xl shadow-lg overflow-hidden border border-green-100 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
+              <img src={event.image} alt={event.title} className="w-full h-48 object-cover" />
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-green-800 mb-2 font-inter">{event.title}</h3>
+                <p className="text-gray-700 text-sm mb-2"><strong>{event.date}</strong> at <strong>{event.time}</strong></p>
+                <p className="text-gray-600 text-md mb-4">{event.description}</p>
+                <p className="text-gray-600 text-sm mb-4"><strong>{t('eventLocation')}:</strong> {event.location}</p>
+                <button
+                  onClick={() => handleRegisterClick(event)}
+                  className="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300"
+                >
+                  {t('registerButton')}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {showRegistrationModal && selectedEvent && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl relative">
+              <button
+                onClick={() => setShowRegistrationModal(false)}
+                className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl"
+              >
+                &times;
+              </button>
+              <h3 className="text-3xl font-bold text-green-800 mb-4 text-center">{t('registerFor')}</h3>
+              <p className="text-xl text-gray-700 mb-4 text-center">
+                {selectedEvent.title}
+              </p>
+              <p className="text-md text-gray-600 mb-6 text-center">
+                {selectedEvent.date} at {selectedEvent.time} - {selectedEvent.location}
+              </p>
+
+              <form onSubmit={handleRegistrationSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">{t('yourName')}:</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">{t('yourEmail')}:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-gray-700 font-semibold mb-2">{t('message')}:</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300"
+                >
+                  {t('registerButton')}
+                </button>
+                {registrationMessage && (
+                  <p className={`mt-4 text-center font-semibold ${registrationMessage.includes('Děkujeme') || registrationMessage.includes('Thank you') ? 'text-green-600' : 'text-red-500'}`}>
+                    {registrationMessage}
+                  </p>
+                )}
+              </form>
+            </div>
+          </div>
+        )}
+      </section>
+    </main>
+  );
+};
+
+const ContactPage = () => {
+  const { t } = useContext(LanguageContext);
+  const [contactMessage, setContactMessage] = useState('');
+
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    // In a real application, you would send this data to a backend (e.g., email service)
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const message = e.target.message.value;
+
+    console.log('Contact Form Data:', { name, email, message });
+
+    if (name && email && message) {
+      setContactMessage(t('contactSuccess'));
+      e.target.reset(); // Clear form
+    } else {
+      setContactMessage(t('contactError'));
+    }
+  };
+
+  return (
+    <main className="container mx-auto p-4 md:p-8">
+      <section className="bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-12 border border-green-200">
+        <h2 className="text-4xl font-bold text-green-800 mb-6 text-center font-inter">{t('contactTitle')}</h2>
+        <p className="text-lg text-gray-700 leading-relaxed mb-8 text-center max-w-4xl mx-auto">{t('contactIntro')}</p>
+
+        <div className="max-w-xl mx-auto bg-green-50 p-8 rounded-2xl shadow-lg border border-green-100">
+          <form onSubmit={handleContactSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="contactName" className="block text-gray-700 font-semibold mb-2">{t('contactFormName')}:</label>
+              <input
+                type="text"
+                id="contactName"
+                name="name"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="contactEmail" className="block text-gray-700 font-semibold mb-2">{t('contactFormEmail')}:</label>
+              <input
+                type="email"
+                id="contactEmail"
+                name="email"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-gray-700 font-semibold mb-2">{t('message')}:</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
+              {t('sendButton')}
+            </button>
+            {contactMessage && (
+              <p className={`mt-4 text-center font-semibold ${contactMessage.includes('Děkujeme') || contactMessage.includes('Thank you') ? 'text-green-600' : 'text-red-500'}`}>
+                {contactMessage}
+              </p>
+            )}
+          </form>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+
+// --- Main App Component ---
+const App = () => {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const handleNavigate = (page) => {
+    setCurrentPage(page);
+  };
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return <HomePage />;
+      case 'about':
+        return <AboutPage />;
+      case 'events': // Changed from calendar
+        return <EventsPage />;
+      case 'contact':
+        return <ContactPage />;
+      default:
+        return <HomePage />;
+    }
+  };
+
+  return (
+    <LanguageProvider>
+      <div className="min-h-screen flex flex-col font-sans bg-green-50">
+        {/* Tailwind CSS CDN */}
+        <script src="https://cdn.tailwindcss.com"></script>
+        {/* Google Fonts - Inter */}
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet" />
+        <style>
+          {`
+          body {
+            font-family: 'Inter', sans-serif;
+          }
+          /* Custom scrollbar for a more natural feel */
+          ::-webkit-scrollbar {
+            width: 12px;
+          }
+          ::-webkit-scrollbar-track {
+            background: #e0f2e0; /* Light green */
+            border-radius: 10px;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: #388e3c; /* Darker green */
+            border-radius: 10px;
+            border: 3px solid #e0f2e0;
+          }
+          ::-webkit-scrollbar-thumb:hover {
+            background: #2e7d32; /* Even darker green on hover */
+          }
+          /* Hero section background animation */
+          @keyframes pulse-slow {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.25; }
+            100% { opacity: 0.2; }
+          }
+          .animate-pulse-slow {
+            animation: pulse-slow 10s infinite ease-in-out;
+          }
+          /* Button bounce animation */
+          @keyframes bounce-once {
+            0%, 100% {
+              transform: translateY(0);
+            }
+            20% {
+              transform: translateY(-8px);
+            }
+            40% {
+              transform: translateY(0);
+            }
+            60% {
+              transform: translateY(-4px);
+            }
+            80% {
+              transform: translateY(0);
+            }
+          }
+          .animate-bounce-once {
+            animation: bounce-once 2s ease-out;
+          }
+          `}
+        </style>
+
+        <Header onNavigate={handleNavigate} currentPage={currentPage} />
+        <div className="flex-grow">
+          {renderPage()}
+        </div>
+        <Footer />
+      </div>
+    </LanguageProvider>
+  );
+};
+
+export default App;
